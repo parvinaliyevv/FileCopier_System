@@ -1,0 +1,108 @@
+﻿<Window x:Class="FileCopier.Views.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        Title="File Copy" Height="250" Width="350" MinHeight="250" MaxHeight="350" MinWidth="500" MaxWidth="600" 
+        ResizeMode="NoResize" Closing="Window_OnClosed" FontFamily="Calibri" FontSize="16" mc:Ignorable="d">
+
+    <Window.Resources>
+
+        <Style x:Key="ApplicationButton" TargetType="Button">
+
+            <Setter Property="Background" Value="#373737" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="15" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#E59400" />
+                                <Setter Property="Foreground" Value="GhostWhite" />
+                            </Trigger>
+
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="OrangeRed" />
+                                <Setter Property="Foreground" Value="GhostWhite" />
+                            </Trigger>
+
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="DimGray" />
+                                <Setter Property="Foreground" Value="GhostWhite" />
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                        <Border CornerRadius="4" Background="{TemplateBinding Background}">
+
+                            <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                        </Border>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Cursor" Value="Hand"/>
+                </Trigger>
+            </Style.Triggers>
+
+        </Style>
+
+    </Window.Resources>
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <UniformGrid Rows="2" Grid.Row="0">
+
+            <DockPanel Margin="3">
+
+                <TextBlock Text="From" VerticalAlignment="Center" TextAlignment="Center" Width="50" DockPanel.Dock="Left"/>
+
+                <Button Style="{StaticResource ApplicationButton}" Command="{Binding GetSourceFilePathCommand}" Content="File..." Margin="10" Width="50" DockPanel.Dock="Right"/>
+
+                <TextBox Text="{Binding SourceFilePathValue, Mode=TwoWay}" IsReadOnly="True" Margin="10"/>
+
+            </DockPanel>
+
+            <DockPanel Margin="3">
+
+                <TextBlock Text="To" VerticalAlignment="Center" TextAlignment="Center" Width="50" DockPanel.Dock="Left"/>
+
+                <Button Style="{StaticResource ApplicationButton}" Command="{Binding GetDestinationFilePathCommand}" Content="File..." Margin="10" Width="50" DockPanel.Dock="Right"/>
+
+                <TextBox Text="{Binding DestinationFilePathValue, Mode=TwoWay}" IsReadOnly="True" Margin="10"/>
+
+            </DockPanel>
+
+        </UniformGrid>
+
+        <UniformGrid Rows="2" Grid.Row="1">
+
+            <ProgressBar Value="{Binding ProgressBarValue, Mode=TwoWay}" Maximum="{Binding ProgressBarMaximumValue, Mode=TwoWay}" Margin="10" />
+
+            <UniformGrid Columns="4">
+
+                <Button Style="{StaticResource ApplicationButton}" Command="{Binding SuspendCommand}" Margin="7" Content="Suspend"/>
+                <Button Style="{StaticResource ApplicationButton}" Command="{Binding ResumeCommand}" Margin="7" Content="Resume"/>
+                <Button Style="{StaticResource ApplicationButton}" Command="{Binding AbortCommand}" Margin="7" Content="Abort"/>
+                <Button Style="{StaticResource ApplicationButton}" Command="{Binding CopyCommand}" Margin="7" Content="Copy"/>
+
+            </UniformGrid>
+
+        </UniformGrid>
+
+    </Grid>
+
+</Window>
