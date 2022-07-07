@@ -27,7 +27,7 @@ namespace FileCopier.Views
                     catch { }
                 }
 
-                var result = MessageBox.Show("Are you sure you want to exit programs?", "The operation is not over yet!", MessageBoxButton.YesNo, MessageBoxImage.Hand);
+                var result = MessageBox.Show("Are you sure you want to exit programs?", "The operation is not over yet!", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
 
                 if (result == MessageBoxResult.No)
